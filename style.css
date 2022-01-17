@@ -1,0 +1,10 @@
+textarea,
+button {
+  display: block;
+  margin-top: 1rem;
+}
+
+span {
+  color: red;
+  border: 1px solid green;
+}
