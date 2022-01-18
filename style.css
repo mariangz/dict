@@ -1,7 +1,10 @@
-div {
-  width: 500px;
-  border: 1px solid red;
+* {
+  box-sizing: border-box;
+  --bg: #E6E6FA;
+  --bg-optional: #FFF0F5;
+  --text-main: #12263A;
 }
+
 
 body {
   display: flex;
@@ -12,9 +15,46 @@ body {
 
 main {
   display: flex;
+  max-width: 1200px;
   height: 600px;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
 }
 
 .container {
   background-color: aquamarine;
+  padding: 2rem 0;
+}
+
+.container.right {
+  min-width: 200px;
+  background-color: var(--bg-optional);
+}
+
+.container.left {
+  background-color: var(--bg);
+  min-width: 600px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 4rem;
+  padding-right: 1rem;
+  gap: 2rem;
+}
+
+.input {
+  background-color: #fff;
+  width: 600px;
+  height: 480px;
+}
+
+.btn {
+  width: 120px;
+  height: 48px;
+  margin-left: auto;
+  background-color: var(--bg);
+  border: 1px solid;
+  outline: 0;
 }
