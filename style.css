@@ -1,10 +1,20 @@
-textarea,
-button {
-  display: block;
-  margin-top: 1rem;
+div {
+  width: 500px;
+  border: 1px solid red;
 }
 
-/* span {
-  color: red;
-  border: 1px solid green;
-} */
+body {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  display: flex;
+  height: 600px;
+}
+
+.container {
+  background-color: aquamarine;
+}
