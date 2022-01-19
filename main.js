@@ -43,10 +43,11 @@ async function synonyms(word) {
     );
 
     const data = await promesa.json();
-    let synonyms = data[0].meanings[0].definitions[0].synonyms;
-    if (synonyms) {
-      synonyms = data[0].meanings[0].definitions[1].synonyms;
-    }
+    const synonyms = data.reduce((arr, obj) => {
+      obj.meanings[0].definitions.forEach((obj) => arr.push(...obj.synonyms));
+      return arr;
+    }, []);
+
     remove();
     synonyms.forEach((def, index) => {
       if (index < 5) {
