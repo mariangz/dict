@@ -1,8 +1,8 @@
 * {
   box-sizing: border-box;
-  --bg: #E6E6FA;
-  --bg-optional: #FFF0F5;
-  --text-main: #12263A;
+  --bg: #e6e6fa;
+  --bg-optional: #fff0f5;
+  --text-main: #12263a;
 }
 
 body {
@@ -57,11 +57,10 @@ h1 {
   line-height: 1.8;
   padding: 36px;
   color: var(--darkblue);
-text-align: left;
-font-weight: 300;
-letter-spacing: 0.9px;
+  text-align: left;
+  font-weight: 300;
+  letter-spacing: 0.9px;
 }
-
 
 .btn {
   width: 120px;
