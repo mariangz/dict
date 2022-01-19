@@ -1,52 +1,54 @@
-const input = document.getElementById('input');
-const output = document.getElementById('output');
-const btn = document.querySelector('button');
-const result = document.getElementById('result');
+const $input = document.getElementById('input');
+const $btn = document.querySelector('button');
+const $result = document.getElementById('result');
 
-//input.addEventListener('input', convert);
-btn.addEventListener('click', convert);
-//btn.addEventListener('click', hover);
-
-function copy() {
-  output.textContent = input.value;
-  //console.log(output.textContent)
-}
+$btn.addEventListener('click', convert);
 
 function convert() {
-  const array = input.value.slice().split(' ');
-  array.forEach((word) => {
-    if (!!word) {
-      const span = document.createElement('span');
-      span.classList.add('word');
-      output.appendChild(span);
-      span.textContent += ` ${word}`;
-      console.log(document.querySelector('span'));
-    }
+  const array = $input.textContent.slice().split(/\b([a-z]+)\b/gi);
+  const regex = /\b([a-z]+)\b/gi;
+  const onlyWords = array.filter((item) => regex.test(item));
+
+  $input.textContent = '';
+  onlyWords.forEach((word) => {
+    const span = document.createElement('span');
+    span.classList.add('word');
+
+    $input.appendChild(span);
+    span.textContent += ` ${word}`;
   });
+
   const allWords = document.querySelectorAll('.word');
-  hover(allWords);
+  chooseWord(allWords);
 }
 
-function hover(array) {
+function chooseWord(array) {
   array.forEach((word) => {
     word.addEventListener('click', (e) => {
-      dictionary(e.target.textContent);
+      synonyms(e.target.textContent);
     });
   });
 }
 
-async function dictionary(word) {
-  console.log(word);
+async function synonyms(word) {
   const promesa = await fetch(
     `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
   );
 
   const data = await promesa.json();
   const synonyms = data[0].meanings[0].definitions[0].synonyms;
+  remove();
   synonyms.forEach((def) => {
     const li = document.createElement('li');
     li.textContent = def;
-    result.appendChild(li);
+    $result.appendChild(li);
   });
-  // console.log(synonyms);
+}
+
+function remove() {
+  if ($result.firstChild) {
+    while ($result.firstChild) {
+      $result.removeChild($result.lastChild);
+    }
+  }
 }
