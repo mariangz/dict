@@ -1,14 +1,14 @@
 const $input = document.getElementById('input');
 const $btn = document.querySelector('button');
-const $choosenWord = document.querySelector('.choosen-word');
+const $chosenWord = document.querySelector('.choosen-word');
 const $result = document.getElementById('result');
 
 $btn.addEventListener('click', convert);
 
 function convert() {
-  const array = $input.textContent.slice().split(/\b([a-z]+)\b/gi);
   const regex = /\b([a-z]+)\b/gi;
-  const onlyWords = array.filter((item) => regex.test(item));
+  const text = $input.textContent.slice().split(regex);
+  const onlyWords = text.filter((item) => regex.test(item));
 
   $input.textContent = '';
   onlyWords.forEach((word) => {
@@ -27,10 +27,10 @@ function selectWord(array) {
   array.forEach((word) => {
     word.addEventListener('click', (e) => {
       const $selectedWord = e.target;
-      if ($selectedWord.textContent != $choosenWord) {
+      if ($selectedWord.textContent != $chosenWord) {
         synonyms($selectedWord.textContent);
         // $selectedWord.classList.add('selected');
-        highlightChoosenWord($selectedWord.textContent);
+        highlightChosenWord($selectedWord.textContent);
       }
     });
   });
@@ -59,7 +59,7 @@ async function synonyms(word) {
   } catch (error) {
     remove();
     const li = document.createElement('li');
-    li.textContent = "sorry, we didn't find that word";
+    li.textContent = 'not found';
     $result.appendChild(li);
   }
 }
@@ -72,6 +72,6 @@ function remove() {
   }
 }
 
-function highlightChoosenWord(word) {
-  $choosenWord.textContent = word;
+function highlightChosenWord(word) {
+  $chosenWord.textContent = word;
 }
