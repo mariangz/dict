@@ -3,6 +3,7 @@
   --bg: #e6e6fa;
   --bg-optional: #fff0f5;
   --text-main: #12263a;
+  --accent: #348EE8;
 }
 
 body {
@@ -34,7 +35,7 @@ h1 {
   background-color: var(--bg-optional);
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
 }
 
 .container.left {
@@ -60,6 +61,7 @@ h1 {
   text-align: left;
   font-weight: 300;
   letter-spacing: 0.9px;
+  
 }
 
 .btn {
@@ -69,11 +71,50 @@ h1 {
   background-color: var(--bg);
   border: 2px solid var(--text-main);
   outline: 0;
+  cursor: pointer;
 }
 
-.subtitle {
+.choosen-word {
   background-color: var(--bg);
   width: 7rem;
   height: 1.5rem;
   margin-top: 70px;
+  margin-left: 1rem;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin-left: 1rem;
+}
+
+ul li {
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.word {
+  cursor: pointer;
+}
+
+span {
+  border: 2px solid transparent;
+  display: inline-block;
+  padding: .5px 3px;
+} 
+
+span:hover {
+  border: 2px solid var(--accent);
+}
+
+.selected {
+  background-color: var(--bg-optional);
+  border: 2px solid var(--accent);
+}
+
+
+audio {
+  filter: sepia(20%) saturate(70%) grayscale(1) contrast(99%) invert(12%);
+  width: 50px;
+  height: 50px;
 }
