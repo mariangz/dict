@@ -16,7 +16,7 @@ function convert() {
     span.classList.add('word');
 
     $input.appendChild(span);
-    span.textContent += ` ${word}`;
+    span.textContent += ` ${word} `;
   });
 
   const allWords = document.querySelectorAll('.word');
@@ -26,27 +26,41 @@ function convert() {
 function selectWord(array) {
   array.forEach((word) => {
     word.addEventListener('click', (e) => {
-      synonyms(e.target.textContent);
-      highlightChoosenWord(e.target.textContent);
+      const $selectedWord = e.target;
+      if ($selectedWord.textContent != $choosenWord) {
+        synonyms($selectedWord.textContent);
+        // $selectedWord.classList.add('selected');
+        highlightChoosenWord($selectedWord.textContent);
+      }
     });
   });
 }
 
 async function synonyms(word) {
-  const promesa = await fetch(
-    `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
-  );
+  try {
+    const promesa = await fetch(
+      `https://api.dictionaryapi.dev/api/v2/entries/en/${word.trim()}`
+    );
 
-  const data = await promesa.json();
-  const synonyms = data[0].meanings[0].definitions[0].synonyms;
-  remove();
-  synonyms.forEach((def, index) => {
-    if (index < 5) {
-      const li = document.createElement('li');
-      li.textContent = def;
-      $result.appendChild(li);
+    const data = await promesa.json();
+    let synonyms = data[0].meanings[0].definitions[0].synonyms;
+    if (synonyms) {
+      synonyms = data[0].meanings[0].definitions[1].synonyms;
     }
-  });
+    remove();
+    synonyms.forEach((def, index) => {
+      if (index < 5) {
+        const li = document.createElement('li');
+        li.textContent = def;
+        $result.appendChild(li);
+      }
+    });
+  } catch (error) {
+    remove();
+    const li = document.createElement('li');
+    li.textContent = "sorry, we didn't find that word";
+    $result.appendChild(li);
+  }
 }
 
 function remove() {
