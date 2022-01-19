@@ -1,5 +1,6 @@
 const $input = document.getElementById('input');
 const $btn = document.querySelector('button');
+const $choosenWord = document.querySelector('.choosen-word');
 const $result = document.getElementById('result');
 
 $btn.addEventListener('click', convert);
@@ -19,13 +20,14 @@ function convert() {
   });
 
   const allWords = document.querySelectorAll('.word');
-  chooseWord(allWords);
+  selectWord(allWords);
 }
 
-function chooseWord(array) {
+function selectWord(array) {
   array.forEach((word) => {
     word.addEventListener('click', (e) => {
       synonyms(e.target.textContent);
+      highlightChoosenWord(e.target.textContent);
     });
   });
 }
@@ -38,10 +40,12 @@ async function synonyms(word) {
   const data = await promesa.json();
   const synonyms = data[0].meanings[0].definitions[0].synonyms;
   remove();
-  synonyms.forEach((def) => {
-    const li = document.createElement('li');
-    li.textContent = def;
-    $result.appendChild(li);
+  synonyms.forEach((def, index) => {
+    if (index < 5) {
+      const li = document.createElement('li');
+      li.textContent = def;
+      $result.appendChild(li);
+    }
   });
 }
 
@@ -51,4 +55,8 @@ function remove() {
       $result.removeChild($result.lastChild);
     }
   }
+}
+
+function highlightChoosenWord(word) {
+  $choosenWord.textContent = word;
 }
